@@ -2,10 +2,9 @@
 
 namespace Jxclsv\Referable\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Jxclsv\Referable\Models\DirectReferralBonus;
 use App\User;
+use Illuminate\Http\Request;
+use Jxclsv\Referable\Models\DirectReferralBonus;
 
 class DirectReferralBonusController extends Controller
 {
@@ -16,7 +15,7 @@ class DirectReferralBonusController extends Controller
      */
     public function index(User $user)
     {
-        $bonuses = $user->directReferralBonuses;
+        $bonuses = $user->directReferralBonuses()->paginate(5);
 
         return view('referral::bonuses.index', compact('bonuses'));
     }

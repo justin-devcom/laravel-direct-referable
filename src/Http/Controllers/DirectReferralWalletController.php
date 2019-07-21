@@ -3,7 +3,6 @@
 namespace Jxclsv\Referable\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Jxclsv\Referable\Models\DirectReferralWallet;
 
 class DirectReferralWalletController extends Controller
