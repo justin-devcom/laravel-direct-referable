@@ -3,6 +3,8 @@
 namespace Jxclsv\Referable\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Jxclsv\Referable\Contracts\DirectReferable;
 
 class DirectReferralWallet extends Model
 {

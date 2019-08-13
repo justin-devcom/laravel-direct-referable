@@ -2,13 +2,19 @@
 
 namespace Jxclsv\Referable\Tests;
 
+use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use Jxclsv\Referable\DirectReferralServiceProvider;
+use Jxclsv\Referable\Models\User;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {
+    protected $user;
+
+    protected $factory;
+
     protected function getPackageProviders($app)
     {
         return [DirectReferralServiceProvider::class];
@@ -21,13 +27,38 @@ abstract class TestCase extends Orchestra
      */
     public function setUp(): void
     {
+        $pathToFactories = realpath(__DIR__ . '/../database/factories');
+
         parent::setUp();
 
+        $this->factory = Factory::construct(\Faker\Factory::create(), $pathToFactories);
+
         Model::unguard();
+
+        Schema::create(config('referral.table_names.directable.table_name'), function ($table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
+            $table->timestamps();
+        });
 
         $this->artisan('migrate', [
             '--database' => 'testbench',
             '--realpath' => realpath(__DIR__ . '/../migrations')
+        ]);
+
+        $this->createTestUser();
+    }
+
+    public function createTestUser()
+    {
+        $this->user =  User::create([
+            'name' => 'tester',
+            'email' => 'tester@tester.com',
+            'password' => bcrypt('tester')
         ]);
     }
 
@@ -47,18 +78,6 @@ abstract class TestCase extends Orchestra
             'database' => ':memory:',
             'prefix' => ''
         ]);
-
-        // ? Add migration
-
-        Schema::create('users', function ($table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
-        });
     }
 
     /**

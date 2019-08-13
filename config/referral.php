@@ -7,8 +7,9 @@ return [
     'paginate_count' => 5,
 
     // * relation model
-    'belongs_to' => App\User::class,
+    'belongs_to' => Jxclsv\Referable\Models\User::class,
     'belongs_to_column' => 'user_id',
+
 
     //  * Where to increament balance
     'add_balance_to' => Jxclsv\Referable\Models\DirectReferralWallet::class,
@@ -21,6 +22,13 @@ return [
 
     // * Custom table name
     'table_names' => [
+        // ! directable table
+        'directable' => [
+            'table_name' => 'users',
+            'column_name' => 'sponsor_id',
+            'indexed' => true
+        ],
+
         'wallets' => 'direct_referral_wallets',
         'bonuses' => 'direct_referral_bonuses',
     ],
@@ -48,7 +56,7 @@ return [
         'belongs_to_references' => 'id',
         'belongs_to_column' => 'user_id',
 
-        'relatable_type' => App\User::class
+        'relatable_type' => Jxclsv\Referable\Models\User::class
     ],
 
     'column_names' => [

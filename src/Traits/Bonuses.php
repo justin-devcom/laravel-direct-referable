@@ -18,7 +18,7 @@ trait Bonuses
     {
         return tap($this->directReferralBonuses()->make([
             'amount' => config('referral.amount'),
-            'model_type' => config('referral.bonuses.relatable_types'),
+            'referable_type' => config('referral.bonuses.relatable_types'),
         ])->referable()->associate($referable))->save();
     }
 }

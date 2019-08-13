@@ -4,5 +4,5 @@ namespace Jxclsv\Referable\Traits;
 
 trait Referable
 {
-    use Wallet, Bonuses;
+    use Directable, Wallet, Bonuses;
 }

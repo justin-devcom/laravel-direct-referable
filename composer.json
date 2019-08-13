@@ -8,7 +8,10 @@
     "autoload": {
         "psr-4": {
             "Jxclsv\\Referable\\": "src"
-        }
+        },
+        "classmap": [
+            "database/factories"
+        ]
     },
     "require": {
         "php": "^7.1.3",
