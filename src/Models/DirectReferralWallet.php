@@ -18,4 +18,12 @@ class DirectReferralWallet extends Model
 
         return $this->belongsTo($relation, $column);
     }
+
+    public function addBalance($amount = null)
+    {
+        return tap($this)->increment(
+            config('referral.wallets.incremental_column'),
+            $amount ?? config('referral.amount')
+        );
+    }
 }
