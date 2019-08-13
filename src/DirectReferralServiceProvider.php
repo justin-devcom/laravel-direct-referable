@@ -26,9 +26,16 @@ class DirectReferralServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . $this->viewsPath, $this->name);
 
         $this->publishes([
-            __DIR__ . '/../config/referral.php' => config_path('referral.php'),
+            __DIR__ . '/../config/' . $this->name . '.php' => config_path($this->name . '.php'),
+        ], 'config');
+
+        $this->publishes([
             __DIR__ . $this->viewsPath => resource_path('views/vendor/' . $this->name),
-        ]);
+        ], 'views');
+
+        $this->publishes([
+            __DIR__ . $this->migrationsPath => database_path('migrations')
+        ], 'migrations');
     }
 
     /**
