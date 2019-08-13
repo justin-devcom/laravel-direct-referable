@@ -5,8 +5,10 @@ namespace Jxclsv\Referable\Models;
 use Jxclsv\Referable\Traits\Referable;
 use Illuminate\Database\Eloquent\Model;
 use Jxclsv\Referable\Contracts\DirectReferable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model implements DirectReferable
+
+class User extends Authenticatable implements DirectReferable
 {
     use Referable;
 

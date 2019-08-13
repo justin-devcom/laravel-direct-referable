@@ -2,8 +2,8 @@
 
 namespace Jxclsv\Referable\Http\Controllers;
 
-use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\User;
 use Jxclsv\Referable\Models\DirectReferralBonus;
 
 class DirectReferralBonusController extends Controller
@@ -13,9 +13,9 @@ class DirectReferralBonusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(User $user)
+    public function index()
     {
-        $bonuses = $user->directReferralBonuses()->paginate(
+        $bonuses = auth()->user()->directReferralBonuses()->with('referable')->paginate(
             config('referral.paginate_count')
         );
 
