@@ -1,21 +1,28 @@
 {
     "name": "jxclsv/laravel-direct-referable",
     "description": "Package for adding direct referral functionality for Laravel",
-    "authors": [
-        {
-            "name": "Justin Tagorda",
-            "email": "justinxclusive@icloud.com"
-        }
-    ],
-    "autoload" : {
+    "authors": [{
+        "name": "Justin Tagorda",
+        "email": "justinxclusive@icloud.com"
+    }],
+    "autoload": {
         "psr-4": {
-            "Jxclsv\\Referable\\" : "src"
+            "Jxclsv\\Referable\\": "src"
         }
     },
     "require": {
         "php": "^7.1.3",
-        "illuminate/database" : ">= 5.8",
-        "illuminate/support" : ">= 5.8"
+        "illuminate/database": ">= 5.8",
+        "illuminate/support": ">= 5.8"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^3.5",
+        "phpunit/phpunit": "^7.5"
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php"
+        ]
     },
     "extra": {
         "laravel": {

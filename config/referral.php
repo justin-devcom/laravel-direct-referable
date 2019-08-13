@@ -4,6 +4,8 @@ return [
     // * Direct Bonus Amount
     'amount' => 100,
 
+    'paginate_count' => 5,
+
     // * relation model
     'belongs_to' => App\User::class,
     'belongs_to_column' => 'user_id',
@@ -11,11 +13,13 @@ return [
     //  * Where to increament balance
     'add_balance_to' => Jxclsv\Referable\Models\DirectReferralWallet::class,
 
+    // Direct Referral Models
     'models' => [
         'wallet' => Jxclsv\Referable\Models\DirectReferralWallet::class,
         'bonuses' => Jxclsv\Referable\Models\DirectReferralBonus::class,
     ],
 
+    // * Custom table name
     'table_names' => [
         'wallets' => 'direct_referral_wallets',
         'bonuses' => 'direct_referral_bonuses',

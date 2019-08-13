@@ -3,14 +3,12 @@
 namespace Jxclsv\Referable\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\User;
 
 class DirectReferralBonus extends Model
 {
     protected $fillable = [
         'amount'
     ];
-
 
     public function referable()
     {
