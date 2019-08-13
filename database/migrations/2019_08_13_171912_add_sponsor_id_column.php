@@ -15,13 +15,13 @@ class AddSponsorIdColumn extends Migration
     {
         Schema::table(config('referral.table_names.directable.table_name'), function (Blueprint $table) {
             if (config('referral.table_names.directable.indexed'))
-                $table->bigInteger(config('referral.table_names.directable.column_name'))->nullable()->unsigned()->index();
+                $table->bigInteger(config('referral.table_names.directable.column_name'))->unsigned()->nullable()->index();
             else
-                $table->bigInteger(config('referral.table_names.directable.column_name'))->nullable()->unsigned();
+                $table->bigInteger(config('referral.table_names.directable.column_name'))->unsigned()->nullable();
 
-            $table->foreign(config('referral.table_names.directable_column'))
+            $table->foreign(config('referral.table_names.directable.column_name'))
                 ->references('id')
-                ->on(config('referral.table_names.directable_table'));
+                ->on(config('referral.table_names.directable.table_name'));
         });
     }
 
@@ -33,7 +33,7 @@ class AddSponsorIdColumn extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn(config('referral.table_names.directable.table_name'));
         });
     }
 }
