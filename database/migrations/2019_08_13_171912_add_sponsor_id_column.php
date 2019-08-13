@@ -18,9 +18,9 @@ class AddSponsorIdColumn extends Migration
 
         Schema::table(config('referral.table_names.directable.table_name'), function (Blueprint $table) {
             if (config('referral.table_names.directable.indexed'))
-                $table->bigInteger(config('referral.table_names.directable.column_name'))->unsigned()->nullable()->index();
+                $table->bigInteger(config('referral.table_names.directable.column_name'))->unsigned()->nullable()->index()->after('id');
             else
-                $table->bigInteger(config('referral.table_names.directable.column_name'))->unsigned()->nullable();
+                $table->bigInteger(config('referral.table_names.directable.id_name'))->unsigned()->nullable()->after('column');
 
             $table->foreign(config('referral.table_names.directable.column_name'))
                 ->references('id')
