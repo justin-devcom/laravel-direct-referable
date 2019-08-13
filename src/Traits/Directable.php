@@ -23,14 +23,9 @@ trait Directable
         return DB::transaction(function () use ($referable) {
             $bonus = $this->createDirectReferralBonus($referable);
 
-            config('referral.add_balance_to')::where(config('referral.belongs_to_column'), $this->getKey())
-                ->increment(
-                    config('referral.wallets.incremental_column'),
-                    config('referral.amount')
-                );
+            $this->directReferralWallet->addBalance();
 
-            DirectAdded::dispatch($this, $referable);
-
+            DirectAdded::dispatch($this, $referable, $bonus);
             return $bonus;
         });
     }
