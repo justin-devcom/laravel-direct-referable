@@ -10,6 +10,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Jxclsv\Referable\Contracts\DirectReferable;
+use Jxclsv\Referable\Models\DirectReferralBonus;
 
 class DirectAdded
 {
@@ -30,13 +31,22 @@ class DirectAdded
     protected $referable;
 
     /**
+     * direct referral bonus
+     *
+     * $referable
+     */
+    protected $bonus;
+
+    /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(DirectReferable $user, DirectReferable $referable)
+    public function __construct(DirectReferable $user, DirectReferable $referable, DirectReferralBonus $bonus)
     {
         $this->user = $user;
+
+        $this->bonus = $bonus;
 
         $this->referable = $referable;
     }
