@@ -13,6 +13,9 @@ class AddSponsorIdColumn extends Migration
      */
     public function up()
     {
+        if (Schema::hasColumn(config('referral.table_names.directable.table_name'), config('referral.table_names.directable.column_name')))
+            return;
+
         Schema::table(config('referral.table_names.directable.table_name'), function (Blueprint $table) {
             if (config('referral.table_names.directable.indexed'))
                 $table->bigInteger(config('referral.table_names.directable.column_name'))->unsigned()->nullable()->index();
