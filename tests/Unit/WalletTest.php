@@ -14,32 +14,13 @@ class WalletTest extends TestCase
     }
 
     /** @test */
-    public function user_can_have_direct_referral_wallet()
-    {
-        $this->user->createDirectReferralWallet();
-
-        $this->assertDatabaseHas(config('referral.table_names.wallets'), [
-            'user_id' => $this->user->id
-        ]);
-
-        $this->assertEquals(0, $this->user->directReferralWallet->balance);
-        $this->assertInstanceOf(DirectReferralWallet::class, $this->user->directReferralWallet);
-    }
-
-    /** @test */
     public function it_can_add_balance()
     {
         $this->user->createDirectReferralWallet();
 
-        $this->user->addDirects(
-            $this->factory->create(User::class, ['sponsor_id' => $this->user->id])
-        );
+        $this->user->directReferralWallet->addBalance();
+        $this->user->directReferralWallet->addBalance();
 
-        $this->user->addDirects(
-            $this->factory->create(User::class, ['sponsor_id' => $this->user->id])
-        );
-
-        $this->assertCount(2, $this->user->directReferralBonuses);
         $this->assertEquals(200, $this->user->directReferralWallet->fresh()->balance);
     }
 }
