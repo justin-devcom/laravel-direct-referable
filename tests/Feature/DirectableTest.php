@@ -19,11 +19,11 @@ class DirectableTest extends TestCase
         $this->user->createDirectReferralWallet();
 
         $this->user->addDirects(
-            $this->factory->create(User::class, ['sponsor_id' => $this->user->id])
+            factory(User::class)->create(['sponsor_id' => $this->user->id])
         );
 
         $this->user->addDirects(
-            $this->factory->create(User::class, ['sponsor_id' => $this->user->id])
+            factory(User::class)->create(['sponsor_id' => $this->user->id])
         );
 
         $this->assertCount(2, $this->user->directReferralBonuses);

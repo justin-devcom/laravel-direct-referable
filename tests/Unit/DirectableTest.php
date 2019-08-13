@@ -24,9 +24,7 @@ class DirectableTest extends TestCase
     /** @test */
     public function user_can_have_sponsor()
     {
-        $newUser = $this->factory->create(User::class, [
-            'sponsor_id' => $this->user->id
-        ]);
+        $newUser = factory(User::class)->create(['sponsor_id' => $this->user->id]);
 
         $this->assertEquals($newUser->sponsor->id, $this->user->id);
     }
@@ -34,13 +32,9 @@ class DirectableTest extends TestCase
     /** @test */
     public function user_can_have_many_directs()
     {
-        $john = $this->factory->create(User::class, [
-            'sponsor_id' => $this->user->id
-        ]);
+        $john = factory(User::class)->create(['sponsor_id' => $this->user->id]);
         
-        $mary = $this->factory->create(User::class, [
-            'sponsor_id' => $this->user->id
-        ]);
+        $mary = factory(User::class)->create(['sponsor_id' => $this->user->id]);
 
         $this->assertCount(2, $this->user->directs);
         $this->assertTrue($this->user->directs->contains('id', $john->id));

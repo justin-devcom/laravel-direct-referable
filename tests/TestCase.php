@@ -31,24 +31,15 @@ abstract class TestCase extends Orchestra
 
         parent::setUp();
 
-        $this->factory = Factory::construct(\Faker\Factory::create(), $pathToFactories);
+        $this->withFactories(__DIR__ . '/../database/factories');
 
         Model::unguard();
 
-        Schema::create(config('referral.table_names.directable.table_name'), function ($table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
-        });
-
+        $this->loadLaravelMigrations(['--database' => 'testbench']);
         $this->artisan('migrate', [
             '--database' => 'testbench',
             '--realpath' => realpath(__DIR__ . '/../migrations')
-        ]);
+        ])->run();
 
         $this->createTestUser();
     }
@@ -78,6 +69,8 @@ abstract class TestCase extends Orchestra
             'database' => ':memory:',
             'prefix' => ''
         ]);
+
+        $app['config']->set('app.key', 'base64:0cQUyrGdqHnZr34c8Bk3268LBrDTQvbBEqbzPXwVp34=');
     }
 
     /**
