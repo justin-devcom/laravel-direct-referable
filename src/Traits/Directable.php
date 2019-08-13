@@ -3,6 +3,7 @@
 namespace Jxclsv\Referable\Traits;
 
 use Illuminate\Support\Facades\DB;
+use Jxclsv\Referable\Events\DirectAdded;
 use Jxclsv\Referable\Contracts\DirectReferable;
 
 trait Directable
@@ -27,6 +28,8 @@ trait Directable
                     config('referral.wallets.incremental_column'),
                     config('referral.amount')
                 );
+
+            DirectAdded::dispatch($this, $referable);
 
             return $bonus;
         });

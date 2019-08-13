@@ -39,7 +39,7 @@ class WalletTest extends TestCase
             $this->factory->create(User::class, ['sponsor_id' => $this->user->id])
         );
 
-        $this->assertEquals(200, $this->user->directReferralWallet->fresh()->balance);
         $this->assertCount(2, $this->user->directReferralBonuses);
+        $this->assertEquals(200, $this->user->directReferralWallet->fresh()->balance);
     }
 }
